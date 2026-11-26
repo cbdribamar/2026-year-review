@@ -503,3 +503,54 @@ body::after {
 
 /* a reel with only two tickets: keep them at the usual four-across width */
 .tickets.duo { grid-auto-columns: calc((1456px - 90px) / 4); }
+
+/* ---------- coming soon (trailer) ---------- */
+.trailer .scene-title { color: var(--white); }
+.trailer .scene-sub { color: var(--grey); font-style: italic; }
+.feature {
+  left: 72px; top: 240px; width: 1456px; height: 236px;
+  display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: center;
+  padding: 0 44px;
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 2px var(--green-dark);
+}
+.feature-tag { font-size: 13px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--green); }
+.feature h3 { margin-top: 12px; font-size: 34px; font-weight: 700; }
+.feature-copy > p:last-child { margin-top: 12px; font-size: 17px; line-height: 1.5; color: var(--grey); max-width: 820px; }
+.rollout { list-style: none; position: relative; display: grid; gap: 12px; }
+.rollout::before {
+  content: ""; position: absolute; left: 19px; top: 20px; bottom: 20px;
+  border-left: 2px dashed var(--slate);
+}
+.rollout li {
+  position: relative;
+  display: flex; align-items: center; gap: 16px;
+  font-size: 18px; font-weight: 600; color: var(--paper);
+}
+.rollout span {
+  display: grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--green-dark); color: var(--white);
+  font-size: 14px; font-weight: 700;
+}
+.teasers {
+  left: 72px; top: 506px; width: 1456px; height: 254px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+}
+.teaser {
+  position: relative;
+  display: flex; flex-direction: column;
+  padding: 30px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 2px dashed rgba(212, 175, 55, .45);
+  transition: transform .9s var(--ease-out), opacity .7s ease;
+  transition-delay: calc(.6s + var(--n, 0) * .12s);
+}
+.slide:not(.played) .teaser { opacity: 0; transform: translateY(50px); transition-delay: 0s; }
+.teaser .soon { font-size: 12px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); }
+.teaser h3 { margin-top: 14px; font-size: 24px; line-height: 1.25; font-weight: 700; }
+.teaser-stat { margin-top: auto; font-size: 18px; color: var(--grey); }
+.teaser-stat strong { color: var(--green); font-weight: 700; }
+.teaser-stat strong.big { font-size: 34px; line-height: 1; }

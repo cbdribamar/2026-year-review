@@ -41,7 +41,7 @@
       });
     });
 
-    slide.querySelectorAll(".ticket").forEach((t, n) => t.style.setProperty("--n", n));
+    slide.querySelectorAll(".ticket, .teaser").forEach((t, n) => t.style.setProperty("--n", n));
     slide.querySelectorAll(".pair .bar, .hbars .bar, .stack .seg").forEach((b, n) => b.style.setProperty("--n", n));
 
     const dot = document.createElement("button");
