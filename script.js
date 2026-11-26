@@ -1,5 +1,5 @@
 // Carlsberg Websites — 2026 Year in Review
-// One scroll gesture = one slide. Also: arrow keys, Page Up/Down, Space, Home/End, swipe, side dots, #hash links.
+// One scroll gesture or click = one slide. Also: arrow keys, Page Up/Down, Space, Home/End, swipe, side dots, #hash links.
 (() => {
   const slides = [...document.querySelectorAll(".slide")];
   const dotsNav = document.querySelector(".dots");
@@ -129,6 +129,20 @@
     else if (k === "f" || k === "F") {
       document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
     }
+  });
+
+  // ---- click / tap anywhere = next slide (the side dots keep their own behaviour) ----
+  let downAt = null;
+  window.addEventListener("mousedown", (e) => {
+    downAt = [e.clientX, e.clientY];
+    if (e.shiftKey) e.preventDefault(); // stop Shift+click from selecting text
+  });
+  window.addEventListener("click", (e) => {
+    if (e.button !== 0 || e.target.closest("button, a, .dots")) return;
+    // a drag (e.g. selecting text) isn't a "next"
+    if (downAt && Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 6) return;
+    window.getSelection?.().removeAllRanges();
+    e.shiftKey ? prev() : next();
   });
 
   // ---- touch ----

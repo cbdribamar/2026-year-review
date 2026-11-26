@@ -8,8 +8,8 @@ Open `index.html` in a browser. Each scroll gesture moves one slide down or up.
 
 | Action | Keys |
 | --- | --- |
-| Next slide | Scroll down, ↓, →, Space, Page Down, swipe up |
-| Previous slide | Scroll up, ↑, ←, Page Up, swipe down |
+| Next slide | Click, scroll down, ↓, →, Space, Page Down, swipe up |
+| Previous slide | Shift + click, scroll up, ↑, ←, Page Up, swipe down |
 | First / last slide | Home / End |
 | Fullscreen | F |
 
