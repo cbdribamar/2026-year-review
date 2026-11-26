@@ -421,11 +421,11 @@ body::after {
   padding-top: 0;
   text-align: center;
 }
-.compact .ticket .body { position: relative; padding: 30px 30px 0 30px; }
+.compact .ticket .body { position: relative; padding: 26px 30px 0 30px; }
 .compact .ticket .tag { margin-top: 0; }
-.compact .ticket h3 { margin-top: 12px; }
+.compact .ticket h3 { margin-top: 10px; }
 .compact .ticket p { margin-top: 8px; }
-.compact .ticket .admit { left: 30px; bottom: 30px; }
+.compact .ticket .admit { left: 30px; bottom: 24px; }
 
 
 /* gold one-liner under a cast member's role (spoilers, jokes) */
@@ -481,3 +481,7 @@ body::after {
 .box-sub + .box-sub { top: 648px; font-size: 22px; font-weight: 400; color: var(--grey); }
 .box-sub strong { color: var(--green); font-weight: 700; }
 .security .source { top: 784px; font-size: 12px; color: var(--slate); }
+
+/* a highlighted result line on a ticket */
+.ticket .ticket-stat { margin-top: 10px; font-size: 16px; font-weight: 600; color: var(--panel); }
+.ticket .ticket-stat strong { font-size: 20px; font-weight: 800; color: var(--green-dark); }
