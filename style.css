@@ -494,7 +494,7 @@ body::after {
 
 .hbars { top: 240px; width: 713px; height: 380px; }
 .heroes { left: 72px; }
-.villains { left: 815px; }
+.villains, .next-up { left: 815px; }
 .hbars ul { margin-top: 26px; list-style: none; }
 .hbars li {
   display: grid; grid-template-columns: 210px 1fr 56px; align-items: center; gap: 14px;
@@ -561,3 +561,49 @@ body::after {
 .sound.playing { color: var(--green); }
 .sound.playing .waves { animation: pulse 1.4s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: .35; } }
+
+/* security slide 16: wins on the left, what's still open on the right */
+.wins {
+  left: 72px; top: 240px; width: 640px; height: 520px;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.15fr 1fr; gap: 30px;
+}
+.wins .stat { padding: 30px; justify-content: flex-end; }
+.wins .stat.big { grid-column: 1 / -1; }
+.wins .stat.big .num { font-size: 96px; }
+.wins .stat.big .lbl { font-size: 19px; color: #CFEFDF; max-width: 460px; }
+.stat .num.green { color: var(--green); }
+
+.open-now { left: 742px; top: 240px; width: 786px; height: 520px; }
+.stack {
+  display: flex; gap: 4px;
+  height: 34px; margin-top: 28px;
+}
+.stack .seg {
+  flex: 0 0 calc(var(--w) * 1% - 3px);
+  border-radius: 6px;
+  transform-origin: left;
+  transition: transform 1s var(--ease-out);
+  transition-delay: calc(.8s + var(--n, 0) * .1s);
+}
+.slide:not(.played) .stack .seg { transform: scaleX(0); transition-delay: 0s; }
+.crit { background: #E03C31; }
+.high { background: #E8833A; }
+.med  { background: var(--gold); }
+.low  { background: var(--slate); }
+.sev-table { width: 100%; margin-top: 26px; border-collapse: collapse; font-size: 17px; }
+.sev-table th {
+  padding: 0 0 10px; text-align: left;
+  font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--grey);
+}
+.sev-table td { padding: 12px 0; border-top: 1px solid #33383B; color: var(--paper); font-variant-numeric: tabular-nums; }
+.sev-table th:not(:first-child), .sev-table td:not(:first-child) { text-align: right; }
+.sev-table .dot { display: inline-block; width: 12px; height: 12px; margin-right: 12px; border-radius: 3px; vertical-align: -1px; }
+.sev-table .down { color: var(--green); font-weight: 700; }
+.sev-table .up { color: var(--grey); font-weight: 700; }
+.open-now .chart-note { margin-top: 18px; font-style: normal; color: var(--grey); }
+.open-now .chart-note strong { color: var(--white); }
+
+/* security slide 17: neutral "next in the queue" instead of red */
+.next-up .bar { background: var(--gold); }
+.next-up b { color: var(--gold); }
+.next-up h3 { color: var(--gold); }

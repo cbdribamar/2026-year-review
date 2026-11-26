@@ -42,7 +42,7 @@
     });
 
     slide.querySelectorAll(".ticket").forEach((t, n) => t.style.setProperty("--n", n));
-    slide.querySelectorAll(".pair .bar, .hbars .bar").forEach((b, n) => b.style.setProperty("--n", n));
+    slide.querySelectorAll(".pair .bar, .hbars .bar, .stack .seg").forEach((b, n) => b.style.setProperty("--n", n));
 
     const dot = document.createElement("button");
     dot.type = "button";
@@ -87,7 +87,7 @@
   // ---- numbers that count up when their slide arrives ----
   const fmt = (el, v) => {
     const dec = +(el.dataset.decimals || 0);
-    el.textContent = v.toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.suffix || "");
+    el.textContent = (el.dataset.prefix || "") + v.toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.suffix || "");
   };
   const countUp = (slide) => {
     slide.querySelectorAll("[data-countup]").forEach((el) => {

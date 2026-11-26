@@ -148,8 +148,8 @@
           <ul><li>Umbraco + React</li><li>ActiveCampaign</li><li>Single Sign-On</li><li>Argus</li></ul>
         </article>
         <article class="reel thriller a-rise" style="--d:.78s">
-          <p class="reel-no">Reel 5</p><h3>Thriller</h3><p class="reel-count">−34%</p>
-          <ul><li>2,632 vulnerabilities found</li><li>265 remediated</li><li>Critical down 49 → 39</li></ul>
+          <p class="reel-no">Reel 5</p><h3>Thriller</h3><p class="reel-count">904</p>
+          <ul><li>Vulnerabilities closed</li><li>34% of all found</li><li>Critical down 20%</li></ul>
         </article>
       </div>
     </div>
@@ -214,40 +214,45 @@
   </section>
 
   <!-- Reel 5 · Thriller: security -->
-  <section class="slide dark scene security" data-title="Reel 5 · Thriller: the security story">
+  <section class="slide dark scene security" data-title="Reel 5 · Fixing what matters most, first">
     <div class="canvas">
       <p class="kicker scene-kicker a-fade">Reel 5 of 5 · Thriller</p>
-      <h2 class="scene-title a-rise" style="--d:.15s">The security story</h2>
-      <p class="scene-sub a-rise" style="--d:.25s">Umbraco Brandsites</p>
-      <div class="stats">
-        <div class="stat a-rise" style="--d:.35s"><span class="num" data-countup="2632">2,632</span><span class="lbl">vulnerabilities identified to date</span></div>
-        <div class="stat a-rise" style="--d:.45s"><span class="num" data-countup="1728">1,728</span><span class="lbl">still open</span></div>
-        <div class="stat a-rise" style="--d:.55s"><span class="num" data-countup="265">265</span><span class="lbl">remediated in the period</span></div>
-        <div class="stat hero a-rise" style="--d:.65s"><span class="num" data-countup="34.4" data-decimals="1" data-suffix="%">34.4%</span><span class="lbl">overall vulnerability reduction</span></div>
+      <h2 class="scene-title a-rise" style="--d:.15s">Fixing what matters most, first</h2>
+      <p class="scene-sub a-rise" style="--d:.25s">Security across the Umbraco Brandsites</p>
+      <div class="wins">
+        <div class="stat hero big a-rise" style="--d:.35s">
+          <span class="num" data-countup="904">904</span>
+          <span class="lbl">vulnerabilities closed: 34% of everything found so far (904 of 2,632)</span>
+        </div>
+        <div class="stat a-rise" style="--d:.5s"><span class="num green" data-countup="20" data-prefix="−" data-suffix="%">−20%</span><span class="lbl">Critical vulnerabilities<br>49 → 39</span></div>
+        <div class="stat a-rise" style="--d:.6s"><span class="num" data-countup="265">265</span><span class="lbl">fixed in the period</span></div>
       </div>
-      <div class="chart-panel severity a-rise" style="--d:.45s">
-        <div class="chart-head">
-          <h3>Open vulnerabilities by severity</h3>
-          <p class="legend"><span class="key may"></span>Before <span class="key jul"></span>Now</p>
+      <div class="chart-panel open-now a-rise" style="--d:.45s">
+        <h3>What's still open <span>· 1,728 vulnerabilities</span></h3>
+        <div class="stack" aria-hidden="true">
+          <span class="seg crit" style="--w:2.26"></span><span class="seg high" style="--w:35.99"></span><span class="seg med" style="--w:53.94"></span><span class="seg low" style="--w:7.81"></span>
         </div>
-        <div class="bars">
-          <div class="group"><div class="pair"><span class="bar may" style="--v:49"><b>49</b></span><span class="bar jul" style="--v:39"><b>39</b></span></div><p>Critical</p></div>
-          <div class="group"><div class="pair"><span class="bar may" style="--v:612"><b>612</b></span><span class="bar jul" style="--v:622"><b>622</b></span></div><p>High</p></div>
-          <div class="group"><div class="pair"><span class="bar may" style="--v:879"><b>879</b></span><span class="bar jul" style="--v:932"><b>932</b></span></div><p>Medium</p></div>
-          <div class="group"><div class="pair"><span class="bar may" style="--v:137"><b>137</b></span><span class="bar jul" style="--v:135"><b>135</b></span></div><p>Low</p></div>
-        </div>
-        <p class="chart-note">Critical is coming down; the volume is building in Medium.</p>
+        <table class="sev-table">
+          <thead><tr><th>Severity</th><th>Open</th><th>Share</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td><i class="dot crit"></i>Critical</td><td>49 → 39</td><td>2%</td><td class="down">↓ 20%</td></tr>
+            <tr><td><i class="dot high"></i>High</td><td>612 → 622</td><td>36%</td><td class="up">↑ 2%</td></tr>
+            <tr><td><i class="dot med"></i>Medium</td><td>879 → 932</td><td>54%</td><td class="up">↑ 6%</td></tr>
+            <tr><td><i class="dot low"></i>Low</td><td>137 → 135</td><td>8%</td><td class="down">↓ 1%</td></tr>
+          </tbody>
+        </table>
+        <p class="chart-note"><strong>98%</strong> of what's still open is not Critical, and Critical is the category coming down.</p>
       </div>
     </div>
   </section>
 
-  <section class="slide dark scene security" data-title="Reel 5 · Heroes and villains">
+  <section class="slide dark scene security" data-title="Reel 5 · Biggest wins and what's next">
     <div class="canvas">
       <p class="kicker scene-kicker a-fade">Reel 5 of 5 · Thriller</p>
-      <h2 class="scene-title a-rise" style="--d:.15s">Heroes and villains</h2>
+      <h2 class="scene-title a-rise" style="--d:.15s">Biggest wins and what’s next</h2>
       <p class="scene-sub a-rise" style="--d:.25s">The applications that moved the most</p>
       <div class="chart-panel hbars heroes a-rise" style="--d:.35s">
-        <h3>Heroes <span>· biggest reductions (vulnerabilities closed)</span></h3>
+        <h3>Biggest wins <span>· vulnerabilities closed</span></h3>
         <ul>
           <li><span class="name">DigitalStudio Ecommerce</span><span class="track"><span class="bar" style="--v:105"></span></span><b>−105</b></li>
           <li><span class="name">Kaiser</span><span class="track"><span class="bar" style="--v:83"></span></span><b>−83</b></li>
@@ -256,8 +261,8 @@
           <li><span class="name">Munkholm</span><span class="track"><span class="bar" style="--v:42"></span></span><b>−42</b></li>
         </ul>
       </div>
-      <div class="chart-panel hbars villains a-rise" style="--d:.5s">
-        <h3>Villains <span>· biggest increases (new findings)</span></h3>
+      <div class="chart-panel hbars next-up a-rise" style="--d:.5s">
+        <h3>Next in the queue <span>· most new findings</span></h3>
         <ul>
           <li><span class="name">cdkhospitality</span><span class="track"><span class="bar" style="--v:111"></span></span><b>+111</b></li>
           <li><span class="name">Hkyau</span><span class="track"><span class="bar" style="--v:66"></span></span><b>+66</b></li>
