@@ -22,7 +22,7 @@
       <p class="film-title a-rise" style="--d:.55s;top:492px">The Year in Review</p>
       <p class="production a-rise" style="--d:.75s;top:588px">A Digital Marketing IIT production</p>
       <img class="logo-mark a-fade" style="--d:1s" src="assets/logo-white.png" alt="Carlsberg">
-      <p class="scroll-hint a-fade" style="--d:1.4s">Scroll to begin</p>
+      <p class="scroll-hint a-fade" style="--d:1.4s" id="hint">Scroll to begin</p>
     </div>
   </section>
 
@@ -346,6 +346,10 @@
 <nav class="dots" aria-label="Slides"></nav>
 <div class="counter" aria-live="polite"><span id="cur">01</span> / <span id="tot">22</span></div>
 
+<audio id="intro-music" src="assets/intro.mp3" preload="auto" loop></audio>
+<button class="sound" type="button" aria-label="Mute music" hidden>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="cross" d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+</button>
 <script src="script.js"></script>
 </body>
 </html>

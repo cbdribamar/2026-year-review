@@ -128,6 +128,7 @@
     [...dotsNav.children].forEach((d, i) => d.classList.toggle("on", i === index));
     cur.textContent = String(index + 1).padStart(2, "0");
     history.replaceState(null, "", `#${index + 1}`);
+    updateMusic();
   };
 
   const go = (to) => {
@@ -140,6 +141,56 @@
   };
   const next = () => go(index + 1);
   const prev = () => go(index - 1);
+
+  // ---- intro music (slide 1 only) ----
+  // Browsers only allow sound after a click or key press, so on slide 1 the first
+  // click / Enter / Space starts the music instead of moving on.
+  const music = document.getElementById("intro-music");
+  const soundBtn = document.querySelector(".sound");
+  const hint = document.getElementById("hint");
+  const MUSIC_VOL = 0.8;
+  let musicOk = !!music, musicOn = true, musicStarted = false, fadeRaf = 0;
+
+  const fade = (to, ms, done) => {
+    cancelAnimationFrame(fadeRaf);
+    const from = music.volume, t0 = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / ms);
+      music.volume = from + (to - from) * t;
+      if (t < 1) fadeRaf = requestAnimationFrame(step); else done?.();
+    };
+    fadeRaf = requestAnimationFrame(step);
+  };
+  const updateMusic = () => {
+    if (!musicOk) return;
+    const want = musicOn && musicStarted && index === 0;
+    if (want) {
+      if (music.paused) { music.volume = 0; music.play().catch(() => {}); }
+      fade(MUSIC_VOL, 1500);
+    } else if (!music.paused) {
+      fade(0, 1500, () => music.pause());
+    }
+    soundBtn.classList.toggle("muted", !musicOn);
+    soundBtn.classList.toggle("playing", want);
+    soundBtn.setAttribute("aria-label", musicOn ? "Mute music" : "Play music");
+    if (hint) hint.textContent = musicStarted ? "Scroll or click to begin" : "Click to start the show";
+  };
+  // returns true when this interaction was used to start the music
+  const startMusic = () => {
+    if (!musicOk || musicStarted || index !== 0) return false;
+    musicStarted = true;
+    updateMusic();
+    return true;
+  };
+  if (musicOk) {
+    music.addEventListener("error", () => { musicOk = false; soundBtn.hidden = true; if (hint) hint.textContent = "Scroll to begin"; });
+    soundBtn.hidden = false;
+    soundBtn.addEventListener("click", () => {
+      if (!musicStarted) { musicStarted = true; musicOn = true; }
+      else musicOn = !musicOn;
+      updateMusic();
+    });
+  }
 
   // ---- wheel / trackpad ----
   window.addEventListener("wheel", (e) => {
@@ -158,10 +209,11 @@
   // ---- keyboard ----
   window.addEventListener("keydown", (e) => {
     const k = e.key;
-    if (["ArrowDown", "ArrowRight", "PageDown", " ", "Enter"].includes(k)) { e.preventDefault(); next(); }
+    if (["ArrowDown", "ArrowRight", "PageDown", " ", "Enter"].includes(k)) { e.preventDefault(); if (!startMusic()) next(); }
     else if (["ArrowUp", "ArrowLeft", "PageUp", "Backspace"].includes(k)) { e.preventDefault(); prev(); }
     else if (k === "Home") { e.preventDefault(); go(0); }
     else if (k === "End") { e.preventDefault(); go(slides.length - 1); }
+    else if (k === "m" || k === "M") { soundBtn?.click(); }
     else if (k === "f" || k === "F") {
       document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
     }
@@ -178,6 +230,7 @@
     // a drag (e.g. selecting text) isn't a "next"
     if (downAt && Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 6) return;
     window.getSelection?.().removeAllRanges();
+    if (!e.shiftKey && startMusic()) return;
     e.shiftKey ? prev() : next();
   });
 
