@@ -42,6 +42,7 @@
     });
 
     slide.querySelectorAll(".ticket").forEach((t, n) => t.style.setProperty("--n", n));
+    slide.querySelectorAll(".pair .bar, .hbars .bar").forEach((b, n) => b.style.setProperty("--n", n));
 
     const dot = document.createElement("button");
     dot.type = "button";
@@ -69,6 +70,26 @@
     });
   });
 
+  // ---- numbers that count up when their slide arrives ----
+  const fmt = (el, v) => {
+    const dec = +(el.dataset.decimals || 0);
+    el.textContent = v.toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.suffix || "");
+  };
+  const countUp = (slide) => {
+    slide.querySelectorAll("[data-countup]").forEach((el) => {
+      const target = parseFloat(el.dataset.countup);
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return fmt(el, target);
+      fmt(el, 0);
+      const start = performance.now() + 700, dur = 1400;
+      const tick = (now) => {
+        const t = Math.min(1, Math.max(0, (now - start) / dur));
+        fmt(el, target * (1 - Math.pow(1 - t, 3)));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  };
+
   // ---- state ----
   const render = (instant = false) => {
     if (instant) slides.forEach((s) => (s.style.transition = "none"));
@@ -79,6 +100,7 @@
       if (i === index) {
         clearTimeout(leaveTimers.get(s));
         requestAnimationFrame(() => s.classList.add("played"));
+        countUp(s);
       } else if (s.classList.contains("played")) {
         // reset its entrance animations only once it is off screen
         clearTimeout(leaveTimers.get(s));
