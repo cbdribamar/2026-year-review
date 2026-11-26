@@ -18,7 +18,7 @@ The dots on the right jump to any slide, and `index.html#12` opens slide 12 dire
 
 ### Intro music
 
-`assets/intro.mp3` ("Eye of the Tiger" by Survivor) plays at full volume on the first slide, drops to a low background level on the Starring slides (2–7), and fades out after the last cast poster. Which slides play it, and how loud, is set by `data-music="full"` or `data-music="low"` on each slide in `index.html`.
+`assets/intro.mp3` ("Eye of the Tiger" by Survivor) plays at full volume on the first slide, drops to a low background level on the Starring and special guest slides (2–9), and fades out after the last guest. Which slides play it, and how loud, is set by `data-music="full"` or `data-music="low"` on each slide in `index.html`.
 
 Browsers only allow sound after a click or key press, so on the first slide the first click (or Enter / Space) starts the music instead of moving on. Moving between slides fades the volume up or down; going back resumes where it left off. Once the song has finished, the speaker button (or M) replays it. If you scroll first, the slide changes and no music plays.
 
