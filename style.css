@@ -532,8 +532,8 @@ body::after {
 .sequel-text strong { color: var(--gold); }
 .source { left: 72px; top: 784px; font-size: 12px; color: var(--slate); }
 
-/* spoiler line under a guest's role */
-.cast-role .spoiler {
+/* gold one-liner under a cast member's role (spoilers, jokes) */
+.cast-role .quip {
   display: block;
   margin-top: 14px;
   font-size: 16px; font-style: normal; font-weight: 700;
