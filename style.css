@@ -388,3 +388,34 @@ body::after {
   *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation: none !important; }
   .slide.is-past { transform: translateY(-100%); filter: none; }
 }
+
+/* compact tickets: 3×2 grid of horizontal tickets, for reels with more than four items */
+.tickets.compact {
+  top: 240px;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 30px;
+}
+.compact .ticket {
+  height: 255px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 126px 1fr;
+}
+.compact .ticket::before, .compact .ticket::after { left: 105px; right: auto; }
+.compact .ticket::before { top: -21px; }
+.compact .ticket::after  { top: auto; bottom: -21px; }
+.compact .ticket .stub {
+  height: auto;
+  padding-top: 26px;
+  border-bottom: 0;
+  border-right: 2px dashed var(--grey);
+  margin: 30px 0;
+  padding-top: 0;
+  text-align: center;
+}
+.compact .ticket .body { position: relative; padding: 30px 30px 0 30px; }
+.compact .ticket .tag { margin-top: 0; }
+.compact .ticket h3 { margin-top: 12px; }
+.compact .ticket p { margin-top: 8px; }
+.compact .ticket .admit { left: 30px; bottom: 30px; }
