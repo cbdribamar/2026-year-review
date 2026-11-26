@@ -149,7 +149,7 @@
   const soundBtn = document.querySelector(".sound");
   const hint = document.getElementById("hint");
   const MUSIC_VOL = 0.8;
-  let musicOk = !!music, musicOn = true, musicStarted = false, fadeRaf = 0;
+  let musicOk = !!music, musicOn = true, musicStarted = false, musicDone = false, fadeRaf = 0;
 
   const fade = (to, ms, done) => {
     cancelAnimationFrame(fadeRaf);
@@ -163,16 +163,16 @@
   };
   const updateMusic = () => {
     if (!musicOk) return;
-    const want = musicOn && musicStarted && index === 0;
+    const want = musicOn && musicStarted && !musicDone && index === 0;
     if (want) {
       if (music.paused) { music.volume = 0; music.play().catch(() => {}); }
       fade(MUSIC_VOL, 1500);
     } else if (!music.paused) {
       fade(0, 1500, () => music.pause());
     }
-    soundBtn.classList.toggle("muted", !musicOn);
+    soundBtn.classList.toggle("muted", !musicOn || musicDone);
     soundBtn.classList.toggle("playing", want);
-    soundBtn.setAttribute("aria-label", musicOn ? "Mute music" : "Play music");
+    soundBtn.setAttribute("aria-label", musicOn && !musicDone ? "Mute music" : "Play music");
     if (hint) hint.textContent = musicStarted ? "Scroll or click to begin" : "Click to start the show";
   };
   // returns true when this interaction was used to start the music
@@ -184,9 +184,12 @@
   };
   if (musicOk) {
     music.addEventListener("error", () => { musicOk = false; soundBtn.hidden = true; if (hint) hint.textContent = "Scroll to begin"; });
+    // the intro plays once; when it ends the button shows "muted" and a click replays it
+    music.addEventListener("ended", () => { musicDone = true; updateMusic(); });
     soundBtn.hidden = false;
     soundBtn.addEventListener("click", () => {
       if (!musicStarted) { musicStarted = true; musicOn = true; }
+      else if (musicDone) { musicDone = false; musicOn = true; music.currentTime = 0; }
       else musicOn = !musicOn;
       updateMusic();
     });
