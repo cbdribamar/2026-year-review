@@ -1,0 +1,390 @@
+/* Carlsberg Websites — 2026 Year in Review
+   Every slide is a 1600×900 canvas, scaled to fit the window (see script.js). */
+
+:root {
+  --ink: #151719;        /* dark slide background */
+  --panel: #202325;      /* dark panels, body text on light */
+  --green: #17B169;
+  --green-dark: #0E7A47;
+  --grey: #9AA3A0;
+  --slate: #5B6366;
+  --gold: #D4AF37;
+  --paper: #F2F3F3;
+  --white: #FFFFFF;
+  --scale: 1;
+  --ease: cubic-bezier(.7, 0, .2, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --slide-dur: 1s;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--white);
+  font-family: "Montserrat", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- stage & slide transitions ---------- */
+
+#stage { position: fixed; inset: 0; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform: translateY(100%);
+  transition: transform var(--slide-dur) var(--ease), filter var(--slide-dur) var(--ease);
+  will-change: transform;
+}
+.slide.dark  { background: var(--ink); }
+.slide.light { background: var(--white); color: var(--panel); }
+
+.slide.is-active { transform: translateY(0); filter: none; }
+/* the slide you leave recedes into the dark while the next one rolls over it */
+.slide.is-past   { transform: translateY(-22%) scale(.92); filter: brightness(.25); }
+
+.canvas {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 1600px; height: 900px;
+  transform: translate(-50%, -50%) scale(var(--scale));
+}
+.canvas > * { position: absolute; }
+
+/* film grain over everything */
+body::after {
+  content: "";
+  position: fixed; inset: -50%;
+  pointer-events: none;
+  z-index: 50;
+  opacity: .06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); } 60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
+}
+
+/* ---------- shared text ---------- */
+
+.kicker {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.kicker.center { left: 0; right: 0; text-align: center; }
+.gold-text { color: var(--gold) !important; }
+
+.footer {
+  left: 72px; top: 831px;
+  display: flex; align-items: center; gap: 11px;
+  font-size: 12px; color: var(--grey);
+}
+.footer img { width: 25px; height: auto; }
+.light .footer { color: var(--slate); }
+
+/* ---------- 1 · opening ---------- */
+
+.bg-image {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: .5;
+  transform: scale(1.15);
+  transition: transform 8s ease-out;
+}
+.opening.played .bg-image { transform: scale(1); }
+.opening::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(21,23,25,.35) 0%, rgba(21,23,25,.9) 75%);
+}
+.opening .canvas { z-index: 1; }
+
+.year {
+  left: 0; right: 0; top: 264px;
+  text-align: center;
+  font-size: 167px; line-height: 216px; font-weight: 700;
+}
+.film-title {
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 47px; font-weight: 700; letter-spacing: 8px; text-transform: uppercase;
+}
+.production {
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 22px; font-style: italic; color: var(--grey);
+}
+.logo-mark { left: 768px; top: 744px; width: 64px; }
+.scroll-hint {
+  left: 0; right: 0; top: 836px;
+  text-align: center;
+  font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--grey);
+}
+.scroll-hint::after {
+  content: "";
+  display: block;
+  width: 10px; height: 10px;
+  margin: 8px auto 0;
+  border-right: 2px solid var(--grey); border-bottom: 2px solid var(--grey);
+  transform: rotate(45deg);
+  animation: nudge 1.6s ease-in-out infinite;
+}
+@keyframes nudge { 50% { transform: translateY(6px) rotate(45deg); } }
+
+/* ---------- dividers ---------- */
+
+.divider .kicker { top: 258px; }
+.divider-title {
+  left: 0; right: 0; top: 312px;
+  text-align: center;
+  font-size: 100px; line-height: 192px; font-weight: 700;
+  letter-spacing: 5px; text-transform: uppercase;
+}
+.divider-sub {
+  left: 240px; right: 240px; top: 522px;
+  text-align: center;
+  font-size: 23px; font-style: italic; color: var(--grey);
+}
+.end-logo { left: 749px; top: 144px; width: 102px; }
+
+/* ---------- poster slides ---------- */
+
+.frame { top: 108px; width: 382px; height: 684px; }
+.poster-right .frame { left: 1086px; }
+.poster-left .frame  { left: 132px; }
+.frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* viewfinder corners (added by script.js) */
+.frame .c {
+  position: absolute;
+  width: 54px; height: 54px;
+  border: 0 solid var(--green);
+  transition: transform .9s var(--ease-out), opacity .6s;
+  transition-delay: calc(var(--d, 0s) + .55s);
+}
+.frame.gold .c { border-color: var(--gold); }
+.frame .tl { top: -21px; left: -21px; border-top-width: 5px; border-left-width: 5px; }
+.frame .tr { top: -21px; right: -21px; border-top-width: 5px; border-right-width: 5px; }
+.frame .bl { bottom: -21px; left: -21px; border-bottom-width: 5px; border-left-width: 5px; }
+.frame .br { bottom: -21px; right: -21px; border-bottom-width: 5px; border-right-width: 5px; }
+.slide:not(.played) .frame .c { opacity: 0; }
+.slide:not(.played) .frame .tl { transform: translate(-40px, -40px); }
+.slide:not(.played) .frame .tr { transform: translate(40px, -40px); }
+.slide:not(.played) .frame .bl { transform: translate(-40px, 40px); }
+.slide:not(.played) .frame .br { transform: translate(40px, 40px); }
+
+.cast-text {
+  top: 108px; height: 684px; width: 816px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.poster-right .cast-text { left: 96px; }
+.poster-left .cast-text  { left: 672px; }
+.cast-text > * { position: relative; }
+.cast-text .kicker { margin-bottom: 24px; }
+.cast-name { font-size: 80px; line-height: 1.05; font-weight: 700; }
+.cast-role { margin-top: 18px; font-size: 27px; font-style: italic; color: var(--grey); }
+
+.ines .frame { left: 160px; top: 181px; width: 720px; height: 538px; }
+.ines .cast-text { left: 980px; top: 181px; height: 538px; width: 520px; }
+
+/* ---------- marquee ---------- */
+
+.marquee {
+  left: 198px; top: 156px; width: 1204px; height: 516px;
+  border: 3px solid var(--green); border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 0 60px rgba(212, 175, 55, .08);
+}
+.marquee > * { position: absolute; }
+.marquee .kicker { top: 66px; font-size: 22px; letter-spacing: 13px; }
+.marquee-title {
+  left: 0; right: 0; top: 132px;
+  text-align: center;
+  font-size: 87px; line-height: 180px; font-weight: 700; text-transform: uppercase;
+}
+.marquee-sub {
+  left: 0; right: 0; top: 342px;
+  text-align: center;
+  font-size: 23px; font-style: italic; color: var(--grey);
+}
+.bulbs { inset: 0; }
+.bulbs i {
+  position: absolute;
+  width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: .35;
+}
+.played .bulbs i {
+  animation: chase 1.2s linear infinite;
+  animation-delay: calc(var(--i) * -0.1s);
+}
+@keyframes chase {
+  0%, 60% { opacity: .3; box-shadow: none; }
+  70%, 90% { opacity: 1; box-shadow: 0 0 12px 3px rgba(212, 175, 55, .7); }
+  100% { opacity: .3; }
+}
+
+/* ---------- scene slides (light) ---------- */
+
+.scene-kicker {
+  left: 72px; top: 54px;
+  font-size: 15px; letter-spacing: 6px; color: var(--green-dark);
+}
+.scene-title { left: 72px; top: 84px; font-size: 47px; font-weight: 700; color: var(--panel); }
+.scene-sub { left: 72px; top: 174px; font-size: 20px; color: var(--slate); }
+
+.programme {
+  left: 72px; top: 234px; width: 1456px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+}
+.reel {
+  height: 468px;
+  padding: 33px;
+  border-radius: 14px;
+  background: var(--panel);
+  color: var(--white);
+}
+.reel-no { font-size: 12px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--grey); }
+.reel h3 {
+  margin: 14px 0 8px; min-height: 58px;
+  font-size: 22px; line-height: 1.3; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+}
+.reel-count { font-size: 60px; font-weight: 700; line-height: 1.2; }
+.reel ul { margin-top: 22px; list-style: none; font-size: 17px; line-height: 1.9; color: var(--paper); }
+
+.tickets {
+  left: 72px; top: 264px; width: 1456px;
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 30px;
+}
+.ticket {
+  position: relative;
+  height: 456px;
+  padding: 0 36px;
+  border-radius: 22px;
+  background: var(--paper);
+  transition: transform .9s var(--ease-out), opacity .7s ease, box-shadow .3s;
+  transition-delay: calc(.45s + var(--n) * .12s);
+}
+.ticket::before, .ticket::after {
+  content: "";
+  position: absolute; top: 117px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--white);
+}
+.ticket::before { left: -21px; }
+.ticket::after  { right: -21px; }
+.ticket .stub { height: 138px; padding-top: 27px; border-bottom: 2px dashed var(--grey); }
+.ticket .no { display: block; font-size: 40px; line-height: 1.2; font-weight: 700; color: var(--green-dark); }
+.ticket .tag {
+  display: block; margin-top: 6px;
+  font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--slate);
+}
+.ticket h3 { margin-top: 36px; font-size: 25px; line-height: 1.25; font-weight: 700; color: var(--panel); }
+.ticket p { margin-top: 14px; font-size: 17px; line-height: 1.4; color: var(--slate); }
+.ticket .admit {
+  position: absolute; left: 36px; bottom: 48px;
+  font-size: 10px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--grey);
+}
+.ticket:hover { box-shadow: 0 18px 40px rgba(21, 23, 25, .12); }
+.slide:not(.played) .ticket { opacity: 0; transform: translateY(60px) rotate(-2deg); transition-delay: 0s; }
+
+/* ---------- credits ---------- */
+
+.credits .kicker { top: 84px; }
+.quote-mark {
+  left: 0; right: 0; top: 96px;
+  text-align: center;
+  font-size: 200px; line-height: 1; font-weight: 700; color: var(--green);
+}
+.headshot {
+  left: 752px; top: 252px; width: 96px; height: 96px;
+  border-radius: 50%; object-fit: cover;
+}
+.credits blockquote {
+  left: 150px; right: 150px; top: 380px; height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  font-size: 36px; line-height: 1.35; font-style: italic;
+}
+.credit-name { left: 0; right: 0; top: 606px; text-align: center; font-size: 30px; font-weight: 700; }
+.credit-role {
+  left: 0; right: 0; top: 656px;
+  text-align: center;
+  font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: var(--grey);
+}
+
+/* ---------- entrance animations ----------
+   Elements start hidden; .played is added once a slide arrives and removed after it leaves. */
+
+.a-fade, .a-rise, .a-zoom, .a-year, .a-poster img, .a-iris {
+  transition-property: opacity, transform, filter, letter-spacing, clip-path;
+  transition-duration: 1s;
+  transition-timing-function: var(--ease-out);
+  transition-delay: calc(var(--d, 0s) + .45s);
+}
+.slide:not(.played) .a-fade  { opacity: 0; }
+.slide:not(.played) .a-rise  { opacity: 0; transform: translateY(40px); }
+.slide:not(.played) .a-zoom  { opacity: 0; transform: scale(.85); }
+.slide:not(.played) .a-year  { opacity: 0; letter-spacing: 60px; filter: blur(12px); }
+.slide:not(.played) .a-poster img { opacity: 0; transform: scale(1.12); filter: brightness(2) blur(6px); clip-path: inset(50% 0 50% 0); }
+.a-poster img { clip-path: inset(0 0 0 0); transition-duration: 1.2s; }
+.a-iris { clip-path: circle(75% at 50% 50%); transition-duration: 1.4s; }
+.slide:not(.played) .a-iris { clip-path: circle(0% at 50% 50%); }
+.a-year { transition-duration: 1.6s; }
+.marquee.a-zoom { transition-duration: 1.2s; }
+
+/* ---------- navigation chrome ---------- */
+
+.dots {
+  position: fixed; right: 18px; top: 50%;
+  z-index: 60;
+  display: flex; flex-direction: column; gap: 9px;
+  transform: translateY(-50%);
+}
+.dots button {
+  position: relative;
+  width: 8px; height: 8px;
+  border: 0; border-radius: 4px;
+  background: rgba(154, 163, 160, .45);
+  cursor: pointer;
+  transition: height .4s var(--ease-out), background .3s;
+}
+.dots button.on { height: 26px; background: var(--green); }
+.dots button:hover::after {
+  content: attr(aria-label);
+  position: absolute; right: 18px; top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--panel); color: var(--white);
+  font: 500 12px "Montserrat", sans-serif;
+  white-space: nowrap;
+}
+.counter {
+  position: fixed; right: 24px; bottom: 16px;
+  z-index: 60;
+  font-size: 12px; font-weight: 600; letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  color: var(--grey);
+  mix-blend-mode: difference;
+}
+
+@media (max-width: 700px) {
+  .dots { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation: none !important; }
+  .slide.is-past { transform: translateY(-100%); filter: none; }
+}
