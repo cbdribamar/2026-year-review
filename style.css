@@ -244,7 +244,7 @@ body::after {
 
 .programme {
   left: 72px; top: 234px; width: 1456px;
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px;
 }
 .reel {
   height: 468px;
@@ -494,3 +494,12 @@ body::after {
   font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
   color: #8A6D12;
 }
+
+/* six programme columns: a little tighter */
+.reel { padding: 28px 24px; }
+.reel h3 { font-size: 18px; letter-spacing: 1px; min-height: 50px; }
+.reel ul { font-size: 15px; }
+.reel-count { font-size: 56px; }
+
+/* a reel with only two tickets: keep them at the usual four-across width */
+.tickets.duo { grid-auto-columns: calc((1456px - 90px) / 4); }
