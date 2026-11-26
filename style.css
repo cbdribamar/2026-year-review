@@ -531,3 +531,12 @@ body::after {
 .sequel-text { margin-top: 8px; font-size: 22px; }
 .sequel-text strong { color: var(--gold); }
 .source { left: 72px; top: 784px; font-size: 12px; color: var(--slate); }
+
+/* spoiler line under a guest's role */
+.cast-role .spoiler {
+  display: block;
+  margin-top: 14px;
+  font-size: 16px; font-style: normal; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+}
