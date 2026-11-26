@@ -508,8 +508,8 @@ body::after {
 .trailer .scene-title { color: var(--white); }
 .trailer .scene-sub { color: var(--grey); font-style: italic; }
 .feature {
-  left: 72px; top: 240px; width: 1456px; height: 236px;
-  display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: center;
+  left: 72px; top: 236px; width: 1456px; height: 262px;
+  display: grid; grid-template-columns: 188px 1fr 300px; gap: 48px; align-items: center;
   padding: 0 44px;
   border-radius: 14px;
   background: var(--panel);
@@ -537,7 +537,7 @@ body::after {
   font-size: 14px; font-weight: 700;
 }
 .teasers {
-  left: 72px; top: 506px; width: 1456px; height: 254px;
+  left: 72px; top: 528px; width: 1456px; height: 236px;
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
 }
 .teaser {
@@ -556,3 +556,12 @@ body::after {
 .teaser-stat { margin-top: auto; font-size: 18px; color: var(--grey); }
 .teaser-stat strong { color: var(--green); font-weight: 700; }
 .teaser-stat strong.big { font-size: 34px; line-height: 1; }
+
+/* Tiago's photo inside the main feature, with gold viewfinder corners */
+.feature .feature-photo { position: relative; top: auto; left: auto; width: 188px; height: 206px; }
+.feature .feature-photo .c { width: 30px; height: 30px; }
+.feature .feature-photo .tl { top: -10px; left: -10px; border-top-width: 3px; border-left-width: 3px; }
+.feature .feature-photo .tr { top: -10px; right: -10px; border-top-width: 3px; border-right-width: 3px; }
+.feature .feature-photo .bl { bottom: -10px; left: -10px; border-bottom-width: 3px; border-left-width: 3px; }
+.feature .feature-photo .br { bottom: -10px; right: -10px; border-bottom-width: 3px; border-right-width: 3px; }
+.feature .feature-photo img { border-radius: 4px; }
