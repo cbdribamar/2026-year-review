@@ -165,6 +165,9 @@
   };
   const updateMusic = () => {
     if (!musicOk) return;
+    const last = index === slides.length - 1;
+    // on the closing slide, a song that has already finished starts again from the top
+    if (last && musicStarted && musicOn && musicDone) { musicDone = false; music.currentTime = 0; }
     const vol = MUSIC_VOL[slides[index].dataset.music] || 0;
     const want = musicOn && musicStarted && !musicDone && vol > 0;
     if (want) {
@@ -180,7 +183,8 @@
   };
   // returns true when this interaction was used to start the music
   const startMusic = () => {
-    if (!musicOk || musicStarted || index !== 0) return false;
+    // the first slide, or the last one if nobody started it at the beginning
+    if (!musicOk || musicStarted || (index !== 0 && index !== slides.length - 1)) return false;
     musicStarted = true;
     updateMusic();
     return true;
