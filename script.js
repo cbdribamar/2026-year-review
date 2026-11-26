@@ -70,6 +70,20 @@
     });
   });
 
+  // ---- shrink long credits quotes until they fit their box ----
+  const fitQuotes = () => {
+    document.querySelectorAll(".credits blockquote").forEach((q) => {
+      let size = 36;
+      q.style.fontSize = size + "px";
+      while (q.scrollHeight > q.clientHeight + 1 && size > 20) {
+        size -= 1;
+        q.style.fontSize = size + "px";
+      }
+    });
+  };
+  fitQuotes();
+  document.fonts?.ready.then(fitQuotes);
+
   // ---- numbers that count up when their slide arrives ----
   const fmt = (el, v) => {
     const dec = +(el.dataset.decimals || 0);

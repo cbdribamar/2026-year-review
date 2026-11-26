@@ -22,4 +22,4 @@ The dots on the right jump to any slide, and `index.html#12` opens slide 12 dire
 
 ## PowerPoint
 
-`Websites2026_YearInReview_Cinema.pptx` is the same deck as an editable PowerPoint file.
+`Websites2026_YearInReview_Cinema.pptx` is an earlier PowerPoint version of the deck. It is no longer updated; the web version is the current one.

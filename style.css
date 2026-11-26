@@ -317,11 +317,13 @@ body::after {
   border-radius: 50%; object-fit: cover;
 }
 .credits blockquote {
-  left: 150px; right: 150px; top: 380px; height: 200px;
-  display: flex; align-items: center; justify-content: center;
+  left: 170px; right: 170px; top: 384px; height: 396px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center;
-  font-size: 36px; line-height: 1.35; font-style: italic;
+  font-size: 36px; line-height: 1.4; font-style: italic;
+  overflow: hidden;
 }
+.credits blockquote p + p { margin-top: .7em; }
 .credit-name { left: 0; right: 0; top: 606px; text-align: center; font-size: 30px; font-weight: 700; }
 .credit-role {
   left: 0; right: 0; top: 656px;
