@@ -485,3 +485,12 @@ body::after {
 /* a highlighted result line on a ticket */
 .ticket .ticket-stat { margin-top: 10px; font-size: 16px; font-weight: 600; color: var(--panel); }
 .ticket .ticket-stat strong { font-size: 20px; font-weight: 800; color: var(--green-dark); }
+
+/* "coming soon" badge for work still in progress */
+.ticket .ticket-badge {
+  display: inline-block;
+  margin-top: 10px; padding: 4px 10px;
+  border: 1.5px solid var(--gold); border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #8A6D12;
+}
