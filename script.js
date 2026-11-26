@@ -150,7 +150,7 @@
   const music = document.getElementById("intro-music");
   const soundBtn = document.querySelector(".sound");
   const hint = document.getElementById("hint");
-  const MUSIC_VOL = { full: 0.8, low: 0.25 };
+  const MUSIC_VOL = { full: 0.8, low: 0.15 };
   let musicOk = !!music, musicOn = true, musicStarted = false, musicDone = false, fadeRaf = 0;
 
   const fade = (to, ms, done) => {
