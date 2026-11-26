@@ -142,31 +142,34 @@
   const next = () => go(index + 1);
   const prev = () => go(index - 1);
 
-  // ---- intro music (slide 1 only) ----
+  // ---- intro music ----
+  // Plays at full volume on slides marked data-music="full" (the opening), quietly on
+  // data-music="low" (the Starring slides), and fades out everywhere else.
   // Browsers only allow sound after a click or key press, so on slide 1 the first
   // click / Enter / Space starts the music instead of moving on.
   const music = document.getElementById("intro-music");
   const soundBtn = document.querySelector(".sound");
   const hint = document.getElementById("hint");
-  const MUSIC_VOL = 0.8;
+  const MUSIC_VOL = { full: 0.8, low: 0.25 };
   let musicOk = !!music, musicOn = true, musicStarted = false, musicDone = false, fadeRaf = 0;
 
   const fade = (to, ms, done) => {
     cancelAnimationFrame(fadeRaf);
     const from = music.volume, t0 = performance.now();
     const step = (now) => {
-      const t = Math.min(1, (now - t0) / ms);
-      music.volume = from + (to - from) * t;
+      const t = Math.min(1, Math.max(0, (now - t0) / ms));
+      music.volume = Math.min(1, Math.max(0, from + (to - from) * t));
       if (t < 1) fadeRaf = requestAnimationFrame(step); else done?.();
     };
     fadeRaf = requestAnimationFrame(step);
   };
   const updateMusic = () => {
     if (!musicOk) return;
-    const want = musicOn && musicStarted && !musicDone && index === 0;
+    const vol = MUSIC_VOL[slides[index].dataset.music] || 0;
+    const want = musicOn && musicStarted && !musicDone && vol > 0;
     if (want) {
       if (music.paused) { music.volume = 0; music.play().catch(() => {}); }
-      fade(MUSIC_VOL, 1500);
+      fade(vol, 1500);
     } else if (!music.paused) {
       fade(0, 1500, () => music.pause());
     }
