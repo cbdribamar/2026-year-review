@@ -16,6 +16,15 @@ Open `index.html` in a browser. Each scroll gesture moves one slide down or up.
 
 The dots on the right jump to any slide, and `index.html#12` opens slide 12 directly.
 
+### Files
+
+- `index.html`: slide content
+- `style.css`: layout, colours and animations
+- `script.js`: scroll, keyboard, touch and dot navigation, and the music
+- `assets/`: posters, headshots, logos, background, intro music and favicons
+
+To run it from a local web server instead of opening the file directly: `npx serve .` (then open http://localhost:3000).
+
 ### Intro music
 
 `assets/intro.mp3` ("Eye of the Tiger" by Survivor) plays at full volume on the first slide, drops to a low background level on the Starring and special guest slides (2–9), fades out after the last guest, and comes back at full volume on the final slide ("The End"), picking up where it left off, or from the start if it has already finished. Which slides play it, and how loud, is set by `data-music="full"` or `data-music="low"` on each slide in `index.html`.
