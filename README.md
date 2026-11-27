@@ -23,3 +23,11 @@ The dots on the right jump to any slide, and `index.html#12` opens slide 12 dire
 Browsers only allow sound after a click or key press, so on the first slide the first click (or Enter / Space) starts the music instead of moving on. Moving between slides fades the volume up or down; going back resumes where it left off. Once the song has finished, the speaker button (or M) replays it. If you scroll first, the slide changes and no music plays.
 
 The song is copyrighted: keep this repository private, and don't publish the presentation on a public site with the song in it. To use another track, replace `assets/intro.mp3` with your own file under the same name.
+
+## PDF
+
+`Websites2026_YearInReview_Cinema.pdf` is a snapshot of the web version, one page per slide, without animations or music.
+
+## PowerPoint
+
+`Websites2026_YearInReview_Cinema.pptx` is an earlier PowerPoint version of the deck. It is no longer updated; the web version is the current one.
